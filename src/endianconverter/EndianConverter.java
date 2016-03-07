@@ -65,7 +65,7 @@ public class EndianConverter {
         }
         printBigEndian(list);
         System.out.println("");
-        printSmallEndian(list);
+        printLittleEndian(list);
     }
 
     ArrayList<Integer> getInt(String[] inputs) {
@@ -98,8 +98,8 @@ public class EndianConverter {
             System.out.println("0 | 0 | 0 | "+list.nums.get(i)+" | ");
         }
     }
-    void printSmallEndian(intCharArray list){
-        System.out.println("Small Endian: ");
+    void printLittleEndian(intCharArray list){
+        System.out.println("Little Endian: ");
         StringBuilder sb = new StringBuilder();
         for (int i = 0, ctr = 0; i < list.chars.size()||ctr<4;i++, ctr++) {
             if(ctr == 4){
