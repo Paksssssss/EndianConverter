@@ -25,7 +25,7 @@ public class EndianConverter {
         inputs = ec.readFile("/home/paks/NetBeansProjects/EndianConverter/src/endianconverter/input.txt");
         ec.solve(inputs);
     }
-
+    //Reads input file
     ArrayList<String> readFile(String filename) throws FileNotFoundException {
         Scanner input = new Scanner(new File(filename));
         ArrayList<String> inputList = new ArrayList();
@@ -34,7 +34,7 @@ public class EndianConverter {
         }
         return inputList;
     }
-
+    //iterates through the array created by the readfile(function)
     void solve(ArrayList<String> inputs) {
         String currentString;
         for (int i = 0; i < inputs.size(); i++) {
@@ -42,7 +42,8 @@ public class EndianConverter {
             convert(currentString);
         }
     }
-
+    
+    //creates a list of characters in the string and separates the integers
     void convert(String input) {
         intCharArray list = new intCharArray();
         String[] inputs = input.split(" ");
@@ -63,23 +64,27 @@ public class EndianConverter {
                 list.chars.add(" ");
             }
         }
-        printBigEndian(list);
+        ArrayList<String> trial = intToBinary(list.nums);
+       // printBigEndian(list);
         System.out.println("");
-        printLittleEndian(list);
+        //printLittleEndian(list);
     }
-
-    ArrayList<Integer> getInt(String[] inputs) {
-        ArrayList<Integer> ints = new ArrayList();
-        for (int i = 0; i < inputs.length; i++) {
-            try {
-                ints.add(Integer.parseInt(String.valueOf(inputs[i])));
-            } catch (NumberFormatException e) {
-                //do nothing
+    
+    // function for converting int to binary
+    
+    ArrayList<String> intToBinary(ArrayList<Integer> ints){
+        ArrayList<String> binaryList = new ArrayList();
+        for(Integer i : ints){
+            String tempString = "";
+            for(int tempInt = i; tempInt>0; tempInt/=2){
+                tempString = Integer.toString(tempInt%2) + tempString;
             }
+            binaryList.add(tempString);
         }
-        return ints;
+        return binaryList;                
     }
-
+    
+    // prints big endian 
     void printBigEndian(intCharArray list) {
         System.out.println("BIG ENDIAN: ");
         for (int i = 0, ctr = 0; i < list.chars.size() || ctr < 4; i++, ctr++) {
@@ -98,6 +103,8 @@ public class EndianConverter {
             System.out.println("0 | 0 | 0 | "+list.nums.get(i)+" | ");
         }
     }
+    
+    //prints little endian
     void printLittleEndian(intCharArray list){
         System.out.println("Little Endian: ");
         StringBuilder sb = new StringBuilder();
